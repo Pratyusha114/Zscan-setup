@@ -4,28 +4,28 @@
 # documentation.
 #
 # The zimperium-zscan GitHub action scans your mobile app binary (iOS or Android)
-# and identifies security, privacy, and compliance-related vulnerabilities. ​
+# and identifies security, privacy, and compliance-related vulnerabilities.
 #
 # Prerequisites:
 #  * An active Zimperium zScan account is required. If you are not an existing Zimperium
 #    zScan customer, please request a zSCAN demo by visiting https://www.zimperium.com/contact-us.
 #  * Either GitHub Advanced Security (GHAS) or a public repository is required to display
-#    issues and view the remediation information inside of GitHub code scanning alerts.​
+#    issues and view the remediation information inside of GitHub code scanning alerts.
 #
 # For additional information and setup instructions
 # please visit:  https://github.com/Zimperium/zScanMarketplace#readme
-
+ 
 name: "Zimperium zScan"
-
+ 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+ 
 permissions:
   contents: read
-
+ 
 jobs:
   zscan:
     name: zScan
@@ -37,12 +37,13 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
+ 
     #- name: Execute gradle build
-      #run: ./gradlew build    # Change this to build your mobile application
-
-    - name: Run Zimperium zScan
-      uses: zimperium/zscanmarketplace@bfc6670f6648d796098c251ccefcfdb98983174d
+    #  run: ./gradlew build    # Change this to build your mobile application
+ 
+    
+    - name: Zimperium zScan
+      uses: Zimperium/zScanMarketplace@v1.1 
       timeout-minutes: 60
       with:
         # REPLACE: Zimperium Client Environment Name
@@ -52,8 +53,8 @@ jobs:
         # REPLACE: Zimperium Client Secret
         client_secret: ${{ secrets.ZSCAN_CLIENT_SECRET }}
         # REPLACE: The path to an .ipa or .apk
-        app_file: ./app-debug.apk
-
+        app_file: ./Payload.ipa
+ 
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v3
       with:
